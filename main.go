@@ -6,6 +6,11 @@ import (
 )
 
 func helloHandler(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/hello" {
+		http.NotFound(w, r)
+		return
+	}
+
 	if r.Method != http.MethodGet {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		fmt.Fprintln(w, "Only GET allowed")
